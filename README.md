@@ -10,9 +10,9 @@
 <!-- ============ LIVE COUNTERS ============ -->
 <p align="center">
   <!-- REPO_STATS:START -->
-  <img src="https://img.shields.io/badge/Total%20Repos-N%2FA-42b883?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1b27" alt="Total Repositories"/>
-  <img src="https://img.shields.io/badge/Public-N%2FA-42b883?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1b27" alt="Public Repositories"/>
-  <img src="https://img.shields.io/badge/Private-N%2FA-42b883?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1b27" alt="Private Repositories"/>
+  <img src="https://img.shields.io/badge/Total%20Repos-16-42b883?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1b27" alt="Total Repositories"/>
+  <img src="https://img.shields.io/badge/Public-4-42b883?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1b27" alt="Public Repositories"/>
+  <img src="https://img.shields.io/badge/Private-12-42b883?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1b27" alt="Private Repositories"/>
   <!-- REPO_STATS:END -->
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fusers%2Fjoker-ly&query=%24.followers&label=Followers&color=42b883&style=for-the-badge&logo=github&logoColor=white&labelColor=1a1b27" alt="Followers"/>
   <img src="https://komarev.com/ghpvc/?username=joker-ly&style=for-the-badge&color=42b883&label=Profile+Views" alt="Profile Views"/>
