@@ -1,0 +1,71 @@
+name: Update Repository Stats
+
+on:
+  schedule:
+    - cron: "0 3 * * *"   # daily at 03:00 UTC
+  workflow_dispatch:        # allow manual runs
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/update-repo-stats.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch repository counts
+        id: counts
+        env:
+          # A Personal Access Token with the "repo" scope so private repos are counted.
+          # Store it in: Settings -> Secrets and variables -> Actions -> New repository secret
+          # Name it METRICS_TOKEN. Falls back to the default token (public repos only).
+          GH_TOKEN: ${{ secrets.METRICS_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          data=$(curl -sf -H "Authorization: Bearer $GH_TOKEN" \
+                          -H "Accept: application/vnd.github+json" \
+                          https://api.github.com/user)
+
+          public=$(echo "$data"  | jq -r '.public_repos // 0')
+          private=$(echo "$data" | jq -r '.total_private_repos // 0')
+          total=$(( public + private ))
+
+          echo "public=$public"   >> "$GITHUB_OUTPUT"
+          echo "private=$private" >> "$GITHUB_OUTPUT"
+          echo "total=$total"     >> "$GITHUB_OUTPUT"
+          echo "Total: $total (public: $public, private: $private)"
+
+      - name: Update README badges
+        env:
+          TOTAL:   ${{ steps.counts.outputs.total }}
+          PUBLIC:  ${{ steps.counts.outputs.public }}
+          PRIVATE: ${{ steps.counts.outputs.private }}
+        run: |
+          set -euo pipefail
+          block="  <!-- REPO_STATS:START -->
+  <img src=\"https://img.shields.io/badge/Total%20Repos-${TOTAL}-42b883?style=for-the-badge&logo=github\" alt=\"Total Repositories\"/>
+  <img src=\"https://img.shields.io/badge/Public-${PUBLIC}-42b883?style=for-the-badge&logo=github\" alt=\"Public Repositories\"/>
+  <img src=\"https://img.shields.io/badge/Private-${PRIVATE}-42b883?style=for-the-badge&logo=github\" alt=\"Private Repositories\"/>
+  <!-- REPO_STATS:END -->"
+
+          export block
+          perl -0777 -i -pe 's{  <!-- REPO_STATS:START -->.*?  <!-- REPO_STATS:END -->}{$ENV{block}}s' README.md
+
+      - name: Commit changes
+        run: |
+          set -euo pipefail
+          if git diff --quiet README.md; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: update repository stats badges"
+          git push
