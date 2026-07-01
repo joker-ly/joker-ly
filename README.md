@@ -77,7 +77,12 @@
 ## 📊 GitHub Stats
 
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=joker-ly&show_icons=true&theme=vue&count_private=true&hide_border=true" alt="GitHub Stats"/>
+  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fusers%2Fjoker-ly&query=%24.public_repos&label=Public%20Repos&color=42b883&style=for-the-badge&logo=github" alt="Public Repositories"/>
+  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fusers%2Fjoker-ly&query=%24.followers&label=Followers&color=42b883&style=for-the-badge&logo=github" alt="Followers"/>
+</p>
+
+<p align="center">
+  <img height="165" src="https://github-readme-stats.vercel.app/api?username=joker-ly&show_icons=true&theme=vue&count_private=true&include_all_commits=true&hide_border=true" alt="GitHub Stats"/>
   <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=joker-ly&layout=compact&theme=vue&hide_border=true" alt="Top Languages"/>
 </p>
 
