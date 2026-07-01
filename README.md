@@ -77,7 +77,11 @@
 ## 📊 GitHub Stats
 
 <p align="center">
-  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fusers%2Fjoker-ly&query=%24.public_repos&label=Public%20Repos&color=42b883&style=for-the-badge&logo=github" alt="Public Repositories"/>
+  <!-- REPO_STATS:START -->
+  <img src="https://img.shields.io/badge/Total%20Repos-N%2FA-42b883?style=for-the-badge&logo=github" alt="Total Repositories"/>
+  <img src="https://img.shields.io/badge/Public-N%2FA-42b883?style=for-the-badge&logo=github" alt="Public Repositories"/>
+  <img src="https://img.shields.io/badge/Private-N%2FA-42b883?style=for-the-badge&logo=github" alt="Private Repositories"/>
+  <!-- REPO_STATS:END -->
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fusers%2Fjoker-ly&query=%24.followers&label=Followers&color=42b883&style=for-the-badge&logo=github" alt="Followers"/>
 </p>
 
