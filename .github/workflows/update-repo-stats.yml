@@ -43,19 +43,24 @@ jobs:
 
       - name: Update README badges
         env:
-          TOTAL:   ${{ steps.counts.outputs.total }}
-          PUBLIC:  ${{ steps.counts.outputs.public }}
+          TOTAL: ${{ steps.counts.outputs.total }}
+          PUBLIC: ${{ steps.counts.outputs.public }}
           PRIVATE: ${{ steps.counts.outputs.private }}
         run: |
           set -euo pipefail
-          block="  <!-- REPO_STATS:START -->
-  <img src=\"https://img.shields.io/badge/Total%20Repos-${TOTAL}-42b883?style=for-the-badge&logo=github\" alt=\"Total Repositories\"/>
-  <img src=\"https://img.shields.io/badge/Public-${PUBLIC}-42b883?style=for-the-badge&logo=github\" alt=\"Public Repositories\"/>
-  <img src=\"https://img.shields.io/badge/Private-${PRIVATE}-42b883?style=for-the-badge&logo=github\" alt=\"Private Repositories\"/>
-  <!-- REPO_STATS:END -->"
+          badge_total="<img src=\"https://img.shields.io/badge/Total%20Repos-${TOTAL}-42b883?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1b27\" alt=\"Total Repositories\"/>"
+          badge_public="<img src=\"https://img.shields.io/badge/Public-${PUBLIC}-42b883?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1b27\" alt=\"Public Repositories\"/>"
+          badge_private="<img src=\"https://img.shields.io/badge/Private-${PRIVATE}-42b883?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1b27\" alt=\"Private Repositories\"/>"
+
+          block=$(printf '%s\n%s\n%s\n%s\n%s' \
+            '<!-- REPO_STATS:START -->' \
+            "  ${badge_total}" \
+            "  ${badge_public}" \
+            "  ${badge_private}" \
+            '  <!-- REPO_STATS:END -->')
 
           export block
-          perl -0777 -i -pe 's{  <!-- REPO_STATS:START -->.*?  <!-- REPO_STATS:END -->}{$ENV{block}}s' README.md
+          perl -0777 -i -pe 's{<!-- REPO_STATS:START -->.*?<!-- REPO_STATS:END -->}{$ENV{block}}s' README.md
 
       - name: Commit changes
         run: |
